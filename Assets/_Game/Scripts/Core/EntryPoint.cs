@@ -20,7 +20,7 @@ public class EntryPoint : MonoBehaviour
 
     private void Start()
     {
-        _uiController.Init();
+        _uiController.Init(_player);
         _player.transform.SetPositionAndRotation(
             _playerSpawnPoint.transform.position,
             _playerSpawnPoint.transform.rotation);

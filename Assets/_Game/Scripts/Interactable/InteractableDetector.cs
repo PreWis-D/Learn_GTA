@@ -24,7 +24,7 @@ public class InteractableDetector
         if (IsActive == false) return;
 
         var ray = new Ray(_viewPos.position, _viewPos.forward);
-        Debug.DrawRay(_viewPos.position, _viewPos.forward, Color.red);
+        Debug.DrawRay(_viewPos.position, _viewPos.forward * _searchDist, Color.red);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, _searchDist, _layerMask))

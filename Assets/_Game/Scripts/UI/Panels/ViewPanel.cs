@@ -20,21 +20,35 @@ public class ViewPanel : BasePanel
     [SerializeField] private float _delayHideDescription = 3f;
     [SerializeField] private float _durationAnimationDescription = 0.5f;
 
+    [Space(10)]
+    [Header("Interaction description")]
+    [SerializeField] private Transform _interactionDescriptionTransform;
+    [SerializeField] private TMP_Text _interactionDescriptionText;
+    [SerializeField] private float _durationAnimationInteractionDescription = 0.25f;
+
+    private Player _player;
+    private IInteractable _interactable;
+
     private Tween _tweenPresent;
     private Tween _tweenDescription;
+    private Tween _tweenInteractable;
 
-    public void Init()
+    public void Init(Player player)
     {
-        _presentTransform.localEulerAngles = Vector3.zero;
-        _descriptionTransform.localEulerAngles = Vector3.zero;
+        _player = player;
+
+        _presentTransform.localScale = Vector3.zero;
+        _descriptionTransform.localScale = Vector3.zero;
+        _interactionDescriptionTransform.localScale = Vector3.zero;
         _presentTransform.gameObject.SetActive(false);
         _descriptionTransform.gameObject.SetActive(false);
+        _interactionDescriptionTransform.gameObject.SetActive(false);
     }
 
     public void SetPresent(QuestViewConfig questViewConfig)
     {
         _presentIcon.sprite = questViewConfig.PresentSprite;
-        
+
         _targetCountText.gameObject.SetActive(questViewConfig.TargetCount > 0);
     }
 
@@ -82,6 +96,34 @@ public class ViewPanel : BasePanel
         _tweenDescription.Kill();
         _tweenDescription = _descriptionTransform.DOScale(Vector3.zero, _durationAnimationDescription).SetEase(Ease.InBack);
         _tweenDescription.OnComplete(() => _descriptionTransform.gameObject.SetActive(false));
+    }
+
+    private void Update()
+    {
+        if (_player)
+            CheckInteractable();
+    }
+
+    private void CheckInteractable()
+    {
+        if (_player.Interactable != null && (_interactable == null || _interactable != _player.Interactable))
+        {
+            _interactionDescriptionTransform.gameObject.SetActive(true);
+            _interactable = _player.Interactable;
+            _interactionDescriptionText.text = $"E: {_interactable.InteractionDescription}";
+            _tweenInteractable.Kill();
+            _tweenInteractable = _interactionDescriptionTransform.DOScale(Vector3.one, _durationAnimationInteractionDescription).SetEase(Ease.OutBack);
+        }
+        else if (_player.Interactable == null && _interactable != null)
+        {
+            _interactable = null;
+            _tweenInteractable.Kill();
+            _tweenInteractable = _interactionDescriptionTransform.DOScale(Vector3.zero, _durationAnimationInteractionDescription).SetEase(Ease.InBack);
+            _tweenInteractable.OnComplete(() =>
+            {
+                _interactionDescriptionTransform.gameObject.SetActive(false);
+            });
+        }
     }
 
     private void OnDestroy()

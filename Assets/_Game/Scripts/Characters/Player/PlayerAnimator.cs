@@ -7,7 +7,7 @@ public class PlayerAnimator : MonoBehaviour
     private Player _player;
     private ThirdPersonController _thirdPersonController;
 
-    private Animator _animator;
+    public Animator Animator {  get; private set; }
     private int _animIDSpeed = Animator.StringToHash("Speed");
     private int _animIDGrounded = Animator.StringToHash("Grounded");
     private int _animIDJump = Animator.StringToHash("Jump");
@@ -18,9 +18,9 @@ public class PlayerAnimator : MonoBehaviour
 
     public void Init(Player player)
     {
-        _animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
 
-        if (_animator == null)
+        if (Animator == null)
             throw new ArgumentException("animator is null");
 
         _player = player;
@@ -54,38 +54,38 @@ public class PlayerAnimator : MonoBehaviour
     #region Move
     private void OnGroundedStateChanged(bool isValue)
     {
-        _animator.SetBool(_animIDGrounded, isValue);
+        Animator.SetBool(_animIDGrounded, isValue);
     }
     
     private void OnMoveSpeedChanged(float animationBlend, float inputMagnitude)
     {
-        _animator.SetFloat(_animIDSpeed, animationBlend);
-        _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+        Animator.SetFloat(_animIDSpeed, animationBlend);
+        Animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
     }
 
     private void OnJumpStateChanged(bool value)
     {
-        _animator.SetBool(_animIDJump, value);
+        Animator.SetBool(_animIDJump, value);
     }
 
     private void OnFreeFallStateChanged(bool value)
     {
-        _animator.SetBool(_animIDFreeFall, value);
+        Animator.SetBool(_animIDFreeFall, value);
     }
 
     private void OnAirboneVelocityChanged(float value)
     {
-        _animator.SetFloat(_animIDAirboneVelocity, value);
+        Animator.SetFloat(_animIDAirboneVelocity, value);
     }
 
     private void OnTimeoutToIdleEntered()
     {
-        _animator.SetTrigger(_animIDTimeoutIdle);
+        Animator.SetTrigger(_animIDTimeoutIdle);
     }
 
     private void OnTimeoutToIdleExeted()
     {
-        _animator.ResetTrigger(_animIDTimeoutIdle);
+        Animator.ResetTrigger(_animIDTimeoutIdle);
     }
     #endregion
 

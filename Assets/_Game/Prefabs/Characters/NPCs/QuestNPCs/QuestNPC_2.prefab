@@ -330,6 +330,7 @@ MonoBehaviour:
   _radius: 4
   _camFollow: {fileID: 2426974236903143227}
   _interactableLayer: 7
+  _interactionDescription: Talk
 --- !u!1 &7884482111035442076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4884740383032647818, guid: 4e873fbfc0ac34c47bc805e58519e64d, type: 3}

@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d18b7a51062d2498d096995575ea0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _panels:
-  - {fileID: 6667124002939060171}
-  - {fileID: 7491474606360865103}
+  _viewPanel: {fileID: 6667124002939060171}
+  _questPanel: {fileID: 7491474606360865103}
 --- !u!1001 &306385058464928439
 PrefabInstance:
   m_ObjectHideFlags: 0

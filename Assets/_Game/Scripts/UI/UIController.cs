@@ -1,15 +1,17 @@
-using Reflex.Attributes;
-using System;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] private BasePanel[] _panels;
+    [SerializeField] private ViewPanel _viewPanel;
+    [SerializeField] private QuestPanel _questPanel;
 
-    public void Init()
+    private BasePanel[] _panels;
+
+    public void Init(Player player)
     {
-        var viewPanel = GetPanel(PanelType.View) as ViewPanel;
-        viewPanel.Init();
+        _panels = GetComponentsInChildren<BasePanel>();
+
+        _viewPanel.Init(player);
 
         ShowPanel(PanelType.View);
     }
@@ -17,8 +19,7 @@ public class UIController : MonoBehaviour
     public void ShowDialogPanel(DialogConfig dialogConfig)
     {
         ShowPanel(PanelType.Quest);
-        var questPanel = GetPanel(PanelType.Quest) as QuestPanel;
-        questPanel.SetDialogText(dialogConfig);
+        _questPanel.SetDialogText(dialogConfig);
     }
 
     public void ShowViewPanel()
@@ -50,22 +51,19 @@ public class UIController : MonoBehaviour
 
     public void ShowQuestView(QuestViewConfig questViewConfig)
     {
-        var viewPanel = GetPanel(PanelType.View) as ViewPanel;
-        viewPanel.SetPresent(questViewConfig);
-        viewPanel.SetDescription(questViewConfig);
-        viewPanel.ShowPresentView();
-        viewPanel.ShowDescriptionView();
+        _viewPanel.SetPresent(questViewConfig);
+        _viewPanel.SetDescription(questViewConfig);
+        _viewPanel.ShowPresentView();
+        _viewPanel.ShowDescriptionView();
     }
 
     public void ShowCountText(int currentValue, int targetValue)
     {
-        var viewPanel = GetPanel(PanelType.View) as ViewPanel;
-        viewPanel.SetCountText(currentValue, targetValue);
+        _viewPanel.SetCountText(currentValue, targetValue);
     }
 
     public void HidePresent()
     {
-        var viewPanel = GetPanel(PanelType.View) as ViewPanel;
-        viewPanel.HidePresentView();
+        _viewPanel.HidePresentView();
     }
 }

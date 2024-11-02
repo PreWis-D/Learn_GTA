@@ -7,12 +7,15 @@ public class QuestNPC : BaseNPC, IInteractable
     [SerializeField] private float _radius;
     [SerializeField] private Transform _camFollow;
     [SerializeField] private int _interactableLayer;
+    [SerializeField] private string _interactionDescription;
 
     private int _currentDialogIndex = 0;
 
     public Transform CamFollow => _camFollow; 
+    public string InteractionDescription => _interactionDescription;
 
     public DialogConfig CurrentDialogConfig { get; private set; }
+
 
     public event Action TalkStarted;
     public event Action TalkEnded;
