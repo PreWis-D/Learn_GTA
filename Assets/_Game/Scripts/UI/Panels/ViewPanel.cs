@@ -110,7 +110,7 @@ public class ViewPanel : BasePanel
         {
             _interactionDescriptionTransform.gameObject.SetActive(true);
             _interactable = _player.Interactable;
-            _interactionDescriptionText.text = $"E: {_interactable.InteractionDescription}";
+            _interactionDescriptionText.text = $"Use E: {_interactable.InteractionDescription}";
             _tweenInteractable.Kill();
             _tweenInteractable = _interactionDescriptionTransform.DOScale(Vector3.one, _durationAnimationInteractionDescription).SetEase(Ease.OutBack);
         }
