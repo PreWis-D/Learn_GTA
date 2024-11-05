@@ -184,11 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72331fe3b1b1b1749948710670140704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pois: []
   _target: {fileID: 4123938870036129217}
   _headRig: {fileID: 8579308998603785476}
   _camera: {fileID: 4794339534785752854}
-  _radius: 10
   _retargetSpeed: 10
   _rigSpeed: 2
   _maxAngle: 90
@@ -790,9 +788,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 4794339534785752854}
   _input: {fileID: 63118386783818244}
-  _minZoom: -1
+  _minZoom: 1
   _maxZoom: 20
   _sensZoom: 0.0075
+  _speedZoom: 50
 --- !u!1 &8271783696789520865
 GameObject:
   m_ObjectHideFlags: 0
