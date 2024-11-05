@@ -11,19 +11,19 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float _minZoom = -1.0f;
     [SerializeField] private float _maxZoom = 20f;
     [SerializeField][Range(0, 1)] private float _sensZoom = 0.0075f;
+    [SerializeField] private float _speedZoom = 2f;
 
     private Cinemachine3rdPersonFollow _personFollow;
-    
+
     public CinemachineVirtualCamera Camera => _camera;
 
     private void Awake()
     {
-        _personFollow = _camera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();    
+        _personFollow = _camera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
     }
 
     private void Update()
     {
-        //if (_personFollow != null && _input != null)
         Zoom();
     }
 
@@ -33,12 +33,11 @@ public class PlayerCamera : MonoBehaviour
 
         zoom += _input.zoom * _sensZoom;
 
-        if (_personFollow.CameraDistance < _minZoom)
+        if (zoom < _minZoom)
             zoom = _minZoom;
-
-        if (_personFollow.CameraDistance > _maxZoom)
+        else if (zoom > _maxZoom)
             zoom = _maxZoom;
 
-        _personFollow.CameraDistance = zoom;
+        _personFollow.CameraDistance = Mathf.Lerp(_personFollow.CameraDistance, zoom, Time.deltaTime * _speedZoom);
     }
 }
