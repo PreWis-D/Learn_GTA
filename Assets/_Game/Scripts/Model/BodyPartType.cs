@@ -1,0 +1,21 @@
+public enum BodyPartType
+{
+    None,
+    Hips,
+    LeftUpLeg,
+    LeftKnee,
+    LeftFoot,
+    RightUpLeg,
+    RightKnee,
+    RightFoot,
+    Spine,
+    LeftShoulder,
+    LeftArm,
+    LeftForeArm,
+    LeftHand,
+    Head,
+    RightShoulder,
+    RightArm,
+    RightForeArm,
+    RightHand
+}

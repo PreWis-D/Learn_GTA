@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Playables;
 
 public class Player : MonoBehaviour
@@ -8,18 +9,20 @@ public class Player : MonoBehaviour
     [SerializeField] private InteractableDetector _detector;
     [SerializeField] private PlayerAnimator _playerAnimator;
     [SerializeField] private PlayableDirector _playableDirector;
+    [SerializeField] private RigidbodyModel _model;
     [SerializeField] private PlayableAsset[] _playableAssets;
     [SerializeField] private float _animateDuration = 0.5f;
 
     private StarterAssetsInputs _starterAssetsInputs;
     private Sequence _sequence;
+    private WeaponBase _currentWeapon;
 
     private int _playableDoorAsset = 0;
     private int _playerIndex = 0;
     private int _doorIndex = 1;
 
     public IInteractable Interactable => _detector.Interactable;
-    public ThirdPersonController ThirdPersonController {  get; private set; }
+    public ThirdPersonController ThirdPersonController { get; private set; }
 
     private void Awake()
     {
@@ -49,6 +52,11 @@ public class Player : MonoBehaviour
                 break;
             case Door door:
                 ThirdPersonController.SetActiveControllState(ActiveControllState.Camera);
+                if (_currentWeapon)
+                {
+                    _currentWeapon.transform.SetParent(_model.GetBodyPart(_currentWeapon.StorageBodyPartType).transform);
+                    _currentWeapon.transform.SetLocalPositionAndRotation(_currentWeapon.StorageBodyPartTargetPosition, Quaternion.Euler(_currentWeapon.StorageBodyPartTargetRotation));
+                }
                 _playableDirector.playableAsset = _playableAssets[_playableDoorAsset];
                 SetSourceAnimator(_playerIndex, _playerAnimator.Animator);
                 SetSourceAnimator(_doorIndex, door.Animator);
@@ -57,6 +65,25 @@ public class Player : MonoBehaviour
                 _sequence.Append(transform.DOMove(door.CharacterPoint.position, _animateDuration).SetEase(Ease.Linear));
                 _sequence.Append(transform.DOLocalRotate(door.CharacterPoint.localEulerAngles, _animateDuration).SetEase(Ease.Linear));
                 _sequence.OnComplete(() => _playableDirector.Play());
+                break;
+            case WeaponBase weaponBase:
+                ThirdPersonController.SetActiveControllState(ActiveControllState.Camera);
+                _sequence.Kill();
+                _sequence = DOTween.Sequence();
+                var direction = weaponBase.transform.position - transform.position;
+                _sequence.Append(transform.DOLocalRotate(direction, _animateDuration).SetEase(Ease.Linear));
+                _sequence.OnComplete(() =>
+                {
+                    if (_currentWeapon)
+                    {
+                        _currentWeapon.transform.SetParent(_model.GetBodyPart(_currentWeapon.StorageBodyPartType).transform);
+                        _currentWeapon.transform.SetLocalPositionAndRotation(_currentWeapon.StorageBodyPartTargetPosition, Quaternion.Euler(_currentWeapon.StorageBodyPartTargetRotation));
+                    }
+                    weaponBase.transform.SetParent(_model.GetBodyPart(weaponBase.HandTargetType).transform);
+                    weaponBase.transform.SetLocalPositionAndRotation(weaponBase.HandTargetPosition, Quaternion.Euler(weaponBase.HandTargetRotation));
+                    _currentWeapon = weaponBase;
+                    ThirdPersonController.SetActiveControllState(ActiveControllState.All);
+                });
                 break;
         }
 
@@ -77,6 +104,12 @@ public class Player : MonoBehaviour
     public void OnTimelineEnded()
     {
         ThirdPersonController.SetActiveControllState(ActiveControllState.All);
+
+        if (_currentWeapon)
+        {
+            _currentWeapon.transform.SetParent(_model.GetBodyPart(_currentWeapon.HandTargetType).transform);
+            _currentWeapon.transform.SetLocalPositionAndRotation(_currentWeapon.HandTargetPosition, Quaternion.Euler(_currentWeapon.HandTargetRotation));
+        }
     }
 
     private void SetSourceAnimator(int index, Animator animator)
