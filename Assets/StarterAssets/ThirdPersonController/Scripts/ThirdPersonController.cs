@@ -105,7 +105,7 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         public event Action<bool> GroundedStateChanged;
-        public event Action<float, float> MoveSpeedChanged;
+        public event Action<float, Vector3, float> MoveSpeedChanged;
         public event Action<bool> JumpStateChanged;
         public event Action<bool> FreeFallStateChanged;
         public event Action TimeoutToIdleEntered;
@@ -179,7 +179,7 @@ namespace StarterAssets
             _activeControllState = activeControllState;
 
             if (_activeControllState == ActiveControllState.None)
-                MoveSpeedChanged?.Invoke(0, 0);
+                MoveSpeedChanged?.Invoke(0, Vector3.zero, 0);
 
         }
 
@@ -275,7 +275,7 @@ namespace StarterAssets
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-            MoveSpeedChanged?.Invoke(_animationBlend, inputMagnitude);
+            MoveSpeedChanged?.Invoke(_animationBlend, inputDirection, inputMagnitude);
         }
 
         private void JumpAndGravity()

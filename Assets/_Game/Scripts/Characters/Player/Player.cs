@@ -33,12 +33,7 @@ public class Player : MonoBehaviour
 
         _playerAnimator.Init(this);
         ThirdPersonController.Init(this);
-        ThirdPersonController.SetActiveControllState(ActiveControllState.None);
-    }
-
-    private void Start()
-    {
-        ThirdPersonController.SetActiveControllState(ActiveControllState.Camera);
+        ThirdPersonController.SetActiveControllState(ActiveControllState.All);
     }
 
     private void TryUseInteractable()

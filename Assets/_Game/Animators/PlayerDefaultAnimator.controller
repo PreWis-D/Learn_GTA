@@ -466,13 +466,13 @@ AnimatorStateMachine:
     second:
     - {fileID: -753843637333490177}
     - {fileID: -464455624255555189}
+  - first: {fileID: 5752068625702826257}
+    second:
+    - {fileID: 2778652344926624800}
   - first: {fileID: 4516709535075382921}
     second:
     - {fileID: -6067153563147880473}
     - {fileID: -260379585465322714}
-  - first: {fileID: 5752068625702826257}
-    second:
-    - {fileID: 2778652344926624800}
   - first: {fileID: -5583688217829107420}
     second:
     - {fileID: 6448382569972214997}
@@ -934,6 +934,18 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: AirborneVerticalSpeed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: IKLeftFootWeight
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: IKRightFootWeight
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
