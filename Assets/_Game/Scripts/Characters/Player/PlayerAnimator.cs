@@ -58,6 +58,9 @@ public class PlayerAnimator : MonoBehaviour
     #region Move
     public void SetAim(bool isAim)
     {
+        if (_isAim == isAim)
+            return;
+
         _isAim = isAim;
         Animator.SetBool(_hashIsAim, _isAim);
     }
@@ -120,7 +123,6 @@ public class PlayerAnimator : MonoBehaviour
     private void SetDefaultMove(float animationBlend, float inputMagnitude)
     {
         Animator.SetFloat(_animIDSpeed, animationBlend);
-        Animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
     }
     #endregion
 

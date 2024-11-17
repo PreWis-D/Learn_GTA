@@ -189,8 +189,8 @@ MonoBehaviour:
   _storageBodyPartTargetPosition: {x: 0.155, y: 0.318, z: -0.09}
   _storageBodyPartTargetRotation: {x: 0, y: 0, z: 44.616}
   _targetHandType: 17
-  _handTargetPosition: {x: 0, y: 0.08, z: 0.029}
-  _handTargetRotation: {x: 0, y: -180, z: -90}
+  _handTargetPosition: {x: -0.0132, y: 0.1174, z: 0.0479}
+  _handTargetRotation: {x: 0.351, y: 179.928, z: -86.545}
 --- !u!1 &5836183803064680627
 GameObject:
   m_ObjectHideFlags: 0

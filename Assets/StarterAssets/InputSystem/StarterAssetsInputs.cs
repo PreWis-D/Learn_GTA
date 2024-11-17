@@ -13,6 +13,7 @@ namespace StarterAssets
         public Vector2 look;
         public bool jump;
         public bool sprint;
+        public bool aim;
         public float zoom;
 
         [Header("Movement Settings")]
@@ -58,6 +59,11 @@ namespace StarterAssets
         {
             InteractableButtonClicked?.Invoke();
         }
+
+        public void OnAim(InputValue value)
+        {
+            AimInput(value.isPressed);
+        }
 #endif
 
         public void MoveInput(Vector2 newMoveDirection)
@@ -83,6 +89,11 @@ namespace StarterAssets
         public void Zoom(float newZoom)
         {
             zoom = newZoom;
+        }
+
+        public void AimInput(bool newAimState)
+        {
+            aim = newAimState;
         }
 
         private void OnApplicationFocus(bool hasFocus)
