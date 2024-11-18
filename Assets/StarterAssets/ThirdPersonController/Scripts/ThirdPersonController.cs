@@ -106,6 +106,7 @@ namespace StarterAssets
 
         public event Action<bool> GroundedStateChanged;
         public event Action<float, Vector3, float> MoveSpeedChanged;
+        public event Action<float> CameraRotated;
         public event Action<bool> JumpStateChanged;
         public event Action<bool> FreeFallStateChanged;
         public event Action TimeoutToIdleEntered;
@@ -213,6 +214,8 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+
+            CameraRotated?.Invoke(_input.look.x);
         }
 
         private void Move()
@@ -265,10 +268,10 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                if (_input.aim == false)
+                //if (_input.aim == false)
                     transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-                else
-                    transform.rotation = _mainCamera.transform.rotation;
+                //else
+                //    transform.rotation = _mainCamera.transform.rotation;
             }
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;

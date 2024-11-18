@@ -7,15 +7,17 @@ public class PlayerAnimator : MonoBehaviour
     private Player _player;
     private ThirdPersonController _thirdPersonController;
     private bool _isAim;
+    private float _camRotateValue;
 
     public Animator Animator { get; private set; }
     private int _hashIsSpeedX = Animator.StringToHash("Velocity X");
     private int _hashIsSpeedZ = Animator.StringToHash("Velocity Z");
+    private int _hashIsCameraRotation = Animator.StringToHash("CameraRotation");
     private int _hashIsAim = Animator.StringToHash("IsAim");
 
     public void Init(Player player)
     {
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
 
         if (Animator == null)
             throw new ArgumentException("animator is null");
@@ -29,11 +31,19 @@ public class PlayerAnimator : MonoBehaviour
     private void Subscribe()
     {
         _thirdPersonController.MoveSpeedChanged += OnMoveSpeedChanged;
+        _thirdPersonController.CameraRotated += OnCameraRotated;
     }
 
     private void Unsubscribe()
     {
         _thirdPersonController.MoveSpeedChanged -= OnMoveSpeedChanged;
+        _thirdPersonController.CameraRotated -= OnCameraRotated;
+    }
+
+    private void OnCameraRotated(float value)
+    {
+        _camRotateValue = Mathf.Lerp(_camRotateValue, value, 10 * Time.deltaTime);
+        Animator.SetFloat(_hashIsCameraRotation, _camRotateValue);
     }
 
     #region Move

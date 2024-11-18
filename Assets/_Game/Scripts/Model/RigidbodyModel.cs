@@ -1,20 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RigidbodyModel : MonoBehaviour
 {
-    [SerializeField] private BodyPart[] _bodyParts;
+    private BodyPart[] _bodyParts;
 
     private void Awake()
     {
-        //for (int i = 0; i < _bodyParts.Length; i++)
-        //{
-        //    if (_bodyParts[i].Type == BodyPartType.RightHand)
-        //        RightHand = _bodyParts[i];
-        //    else if (_bodyParts[i].Type == BodyPartType.LeftHand)
-        //        LeftHand = _bodyParts[i];
-        //}
+        _bodyParts = GetComponentsInChildren<BodyPart>();
     }
 
     public void Impuls(float force, Vector3 startPosition, float radius, float modifier)
