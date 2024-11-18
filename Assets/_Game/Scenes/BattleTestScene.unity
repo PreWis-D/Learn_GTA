@@ -2203,7 +2203,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2229664627167775429, guid: 85fe4537e5296b84db85b56a719d4e93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.32800817
+      value: -4.5699997
       objectReference: {fileID: 0}
     - target: {fileID: 2229664627167775429, guid: 85fe4537e5296b84db85b56a719d4e93, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2211,7 +2211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2229664627167775429, guid: 85fe4537e5296b84db85b56a719d4e93, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.2739997
+      value: -7.98
       objectReference: {fileID: 0}
     - target: {fileID: 2229664627167775429, guid: 85fe4537e5296b84db85b56a719d4e93, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2792,7 +2792,7 @@ PrefabInstance:
     - target: {fileID: 6065128443039884470, guid: cb1734d3e02e47447aff068fa71922e2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -4565884009001823619, guid: fec51e625fb17c84eb30679003b9a4d1, type: 3}
+      objectReference: {fileID: 2100000, guid: 529a93fa322858f4992df667ea32f9ea, type: 2}
     - target: {fileID: 6318713144093969082, guid: cb1734d3e02e47447aff068fa71922e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.586
@@ -2804,7 +2804,7 @@ PrefabInstance:
     - target: {fileID: 7524401460080986414, guid: cb1734d3e02e47447aff068fa71922e2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -4565884009001823619, guid: fec51e625fb17c84eb30679003b9a4d1, type: 3}
+      objectReference: {fileID: 2100000, guid: 529a93fa322858f4992df667ea32f9ea, type: 2}
     - target: {fileID: 8224403696985830279, guid: cb1734d3e02e47447aff068fa71922e2, type: 3}
       propertyPath: m_Name
       value: Door
