@@ -11,6 +11,7 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private Transform _debugTransform;
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private Transform _spawnBulletPosition;
+    [SerializeField] private ParticleSystem _particlePrefab;
 
     private ThirdPersonController _personController;
     private StarterAssetsInputs _inputs;
@@ -56,8 +57,9 @@ public class ThirdPersonShooterController : MonoBehaviour
 
             if (_inputs.shoot)
             {
+
                 Vector3 aimDirection = (mouseWorldPosition - _spawnBulletPosition.position).normalized;
-                Instantiate(_bulletPrefab, _spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+                Instantiate(_particlePrefab, mouseWorldPosition, Quaternion.LookRotation(-aimDirection, Vector3.up));
                 _inputs.shoot = false;
             }
         }
